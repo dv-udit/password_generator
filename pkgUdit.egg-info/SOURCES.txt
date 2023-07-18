@@ -1,8 +1,0 @@
-License.txt
-setup.py
-pkgUdit/__init__.py
-pkgUdit/pp.py
-pkgUdit.egg-info/PKG-INFO
-pkgUdit.egg-info/SOURCES.txt
-pkgUdit.egg-info/dependency_links.txt
-pkgUdit.egg-info/top_level.txt
