@@ -45,4 +45,7 @@ source venv/bin/activate
 ```
 pip install pkgUdit
 ```
-7. from pkgUdit import generatePass
+7. Importing the package
+```
+from pkgUdit import generatePass
+```
