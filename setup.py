@@ -5,7 +5,7 @@ import setuptools
 
 setuptools.setup(
     name="pkgUdit",                     # This is the name of the package
-    version="1.1.1",                        # The initial release version
+    version="1.1.5.2",                        # The current release version
     author="Udit Sharma",                     # Full name of the author
     description="The is a sample package",
     zip_safe=False,
@@ -20,7 +20,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],                                      # Information to filter the project on PyPi website
     python_requires='>=3.6',                # Minimum version requirement of the package
-    py_modules=["quicksample"],             # Name of the python package
+    py_modules=["pkgUdit"],             # Name of the python package
     package_dir={'':'.'},     # Directory of the source code of the package
     install_requires=[]                     # Install other dependencies if any
 )
