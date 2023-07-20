@@ -1,82 +1,89 @@
+
 import random
 import csv
 import os
 
+# Saving the required data for making the password in lists
+numerals = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+lower_caps = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+            'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 
+            'u', 'v', 'w', 'x', 'y', 'z']
+upper_chars = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+             'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 
+             'U', 'V', 'W', 'X', 'Y', 'Z']
+
+combined_chars = numerals + lower_caps + upper_chars
 module_dir = os.path.dirname(__file__)
-# print(module_dir)
-# contents = os.listdir(module_dir)
-# print(contents)
-module_dir = os.path.dirname(__file__)
 
+def read_csv_file(file_name):
+    """
+    Read a CSV file and return its contents as a list.
 
-numerals = ['0','1','2','3','4','5','6','7','8','9']
-lowerCaps = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-upperChars = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+    Args:
+        file_name (str): The name of the CSV file to read.
 
-combinedChars = numerals + lowerCaps + upperChars
-file_name = 'names.csv'
-file_path = os.path.join(module_dir, file_name)
+    Returns:
+        list: A list containing the values read from the CSV file.
+    """
+    file_path = os.path.join(module_dir, file_name)
+    with open(file_path) as csv_file:
+        csv_reader = csv.reader(csv_file)
+        return [row[0] for row in csv_reader]
 
-with open(file_path) as names_file:
-        
-        names_reader = csv.reader(names_file)
-        nameList = []
-        for row in names_reader:
-            nameList.append(row[0])
-            
-file_name = 'places.csv'
-file_path = os.path.join(module_dir, file_name)
-# print(file_path)
-# print(type file_path)
-# with open('plcea.csv') as places_file:
-with open(file_path) as places_file:
-    places_reader = csv.reader(places_file)
-    placeList = []
+name_list = read_csv_file('names.csv')
+place_list = read_csv_file('places.csv')
 
-    for row in places_reader:
-        placeList.append(row[0])
+def custom_choice(chars):
+    """
+    Choose a random character from the given character set.
 
-def custom_choice(combinedChars):
-    idx = random.randint(0, len(combinedChars)-1)
-    return combinedChars[idx]
+    Args:
+        chars (list): A list containing characters to choose from.
+
+    Returns:
+        str: A random character from the given character set.
+    """
+    return random.choice(chars)
 
 def make_random():
-    passLength = random.randint(6, 12)
-    password = []
-    password.append(random.choice(numerals))  # Include one numeric value
-    
-    for _ in range(passLength - 1):
-        password.append(custom_choice(combinedChars))
-    
+    """
+    Generate a random password that is not present in the name or place list.
+
+    Returns:
+        str: A randomly generated password.
+    """
+    pass_length = random.randint(6, 12)
+    password = [custom_choice(combined_chars) for _ in range(pass_length)]
+    password.insert(0, random.choice(numerals))  # Include one numeric value
     random.shuffle(password)
     pswd = "".join(password)
-    # print (pswd)
-    if(passwordChecker(pswd)==False):
-         return make_random()
-    else:
-        return pswd
+    return pswd if password_checker(pswd) else make_random()
 
-def passwordChecker(created_pass):
-    # created_pass="Gujrat"# remove comment to see iwhat happens when passwrod is same as word incsv
-    password_found = (created_pass in placeList)
-    if password_found:
-        return False
+def password_checker(created_pass):
+    """
+    Check if the generated password is not present in the name or place list.
+
+    Args:
+        created_pass (str): The password to be checked.
+
+    Returns:
+        bool: True if the password is not in the name or place list, False otherwise.
+    """
+    return created_pass not in (name_list + place_list)
+
+def generate_pass():
+    """
+    Generate a random password that is not present in the name or place list.
+
+    Returns:
+        str: A randomly generated password.
+    """
+    return make_random()
+
+# Example usage:
+final_pass = generate_pass()
+print(len(final_pass))
+print(final_pass)
+
+
     
-    else:
-        password_found2 = (created_pass in placeList)
-        if password_found2:
-            return False
-        else:
-            return True
-
-    
-
-
-def generatePass():
-    created_pass = make_random()
-    return created_pass
-
-
-# final_pass = generatePass()
-# print(len(final_pass))
-# print(final_pass)
