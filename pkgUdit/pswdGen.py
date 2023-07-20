@@ -29,8 +29,8 @@ def read_csv_file(file_name):
         csv_reader = csv.reader(csv_file)
         return [row[0] for row in csv_reader]
 
-name_list = read_csv_file('names.csv')
-place_list = read_csv_file('places.csv')
+name_list = read_csv_file('Names.csv')
+place_list = read_csv_file('Places.csv')
 
 def custom_choice(chars):
     """
