@@ -80,9 +80,9 @@ def generate_pass():
     return make_random()
 
 # Example usage:
-final_pass = generate_pass()
-print(len(final_pass))
-print(final_pass)
+# final_pass = generate_pass()
+# print(len(final_pass))
+# print(final_pass)
 
 
     
