@@ -14,6 +14,8 @@ upper_chars = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
 combined_chars = numerals + lower_caps + upper_chars
 module_dir = os.path.dirname(__file__)
 
+# print("module_dir>>>>>>>" , module_dir)
+
 def read_csv_file(file_name):
     """
     Read a CSV file and return its contents as a list.
@@ -24,7 +26,8 @@ def read_csv_file(file_name):
     Returns:
         list: A list containing the values read from the CSV file.
     """
-    file_path = os.path.join(module_dir, file_name)
+    file_path = os.path.join(module_dir,"data",file_name)
+    # print("file_path>>>>>>",file_path)
     with open(file_path) as csv_file:
         csv_reader = csv.reader(csv_file)
         return [row[0] for row in csv_reader]
