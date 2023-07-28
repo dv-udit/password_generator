@@ -51,7 +51,7 @@ def make_random():
     Returns:
         str: A randomly generated password.
     """
-    pass_length = random.randint(6, 12)
+    pass_length = random.randint(6, 10)
     password = [custom_choice(combined_chars) for _ in range(pass_length)]
     password.insert(0, random.choice(numerals))  # Include one numeric value
     random.shuffle(password)
