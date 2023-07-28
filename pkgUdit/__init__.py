@@ -8,7 +8,7 @@
 
 
 
-from .pswdGen import generatePass
+from .pswdGen import generate_pass
 
 
 
