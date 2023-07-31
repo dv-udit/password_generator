@@ -12,7 +12,6 @@ This is a simple password generator that generates a random password of length b
 Follow the steps below to set up and run the password generator:
 
 ### Prerequisites
-
 - Python 3.x
 
 ### Installation
