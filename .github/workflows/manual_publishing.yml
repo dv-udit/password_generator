@@ -1,9 +1,9 @@
 name: Publish Package
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
   workflow_dispatch:
     inputs:
       new_version:
@@ -24,14 +24,14 @@ jobs:
       run: pip install twine
     - name : Install wheel package
       run: pip install wheel
-    - name: Update version in version.py
-      run: |
-        echo "__version__ = '${{ github.event.inputs.new_version }}'" > version.py
-    # - name: Update version number
-    #   env:
-    #     PACKAGE_NAME: pkgUdit
-    #     NEW_VERSION: ${{ github.event.inputs.new_version }}
-    #   run: sed -i "s/__version__ = \".*\"/__version__ = \"$NEW_VERSION\"/" $PACKAGE_NAME/version.py
+    # - name: Update version in version.py
+    #   run: |
+    #     echo "__version__ = '${{ github.event.inputs.new_version }}'" > version.py
+    - name: Update version number
+      env:
+        PACKAGE_NAME: pkgUdit
+        NEW_VERSION: ${{ github.event.inputs.new_version }}
+      run: sed -i "s/__version__ = \".*\"/__version__ = \"$NEW_VERSION\"/" $PACKAGE_NAME/version.py
     - name: Build package
       run: python setup.py sdist bdist_wheel
     - name: Publish package
