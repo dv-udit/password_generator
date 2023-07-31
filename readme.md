@@ -48,3 +48,17 @@ pip install pkgUdit
 ```
 from pkgUdit import generatePass
 ```
+
+# Publishing the Package
+To publish the package to PyPI, follow these steps:
+
+Ensure you are in the root directory of the password-generator project.
+
+Manually trigger the GitHub Actions workflow to publish the package. To do this:
+
+* Go to the "Actions" tab in your GitHub repository.
+* Click on the "Publish Package" under "All workflows."
+* Click on the "Run workflow" button.
+* You will be prompted to enter the new package version.
+
+The GitHub Actions workflow will then automatically update the package version in the version.py file, build the distribution, and publish the package to PyPI with the specified version.
