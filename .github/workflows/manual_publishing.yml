@@ -19,6 +19,8 @@ jobs:
         python-version: '3.9'
     - name: Install dependencies
       run: pip install twine
+    - name : Install wheel package
+      run: pip install wheel
     - name: Update version number
       env:
         PACKAGE_NAME: pkgUdit
