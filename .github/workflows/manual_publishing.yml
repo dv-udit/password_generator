@@ -21,10 +21,9 @@ jobs:
       run: pip install twine
     - name: Update version number
       env:
-        PACKAGE_NAME: mypackage
+        PACKAGE_NAME: pkgUdit
         NEW_VERSION: ${{ github.event.inputs.new_version }}
-      run : sed -i "s/__version__ = \".*\"/__version__ = \"$package_version\"/" pkgUdit/__init__.py
-
+      run: sed -i "s/__version__ = \".*\"/__version__ = \"$NEW_VERSION\"/" $PACKAGE_NAME/version.py
     - name: Build package
       run: python setup.py sdist bdist_wheel
     - name: Publish package
