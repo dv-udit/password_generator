@@ -1,4 +1,4 @@
-name: Publish to PyPI
+name: Publish to PyPI on Push
 
 on:
   push:
@@ -12,6 +12,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Update Package Version
+        id: get_version
+        run: |
+          # Retrieve the input value of 'new_version'
+          new_version="${{ github.event.inputs.new_version }}"
+
+          # Update the version in the __init__.py file
+          sed -i "s/__version__ = \".*\"/__version__ = \"$new_version\"/" pkgUdit/__init__.py
+
+          # Commit the changes
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git commit -a -m "Update version to $new_version"
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -24,6 +38,7 @@ jobs:
         run: python setup.py sdist bdist_wheel
 
       - name: Publish to PyPI
+        if: ${{ success() }}
         run: python -m twine upload --skip-existing dist/*
 
         env:

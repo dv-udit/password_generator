@@ -7,10 +7,8 @@
 # sys.path.append(parent_dir)
 
 
-
 from .pswdGen import generate_pass
-
-
+__version__ = '1.1.5.9'
 
 # def generatePassword():
 #     return generatePass()
