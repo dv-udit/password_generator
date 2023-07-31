@@ -1,53 +1,33 @@
-name: Publish to PyPI on Push and Manual Trigger
+name: Publish Package
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
     inputs:
       new_version:
-        description: 'Package version for publishing to PyPI'
+        description: 'Enter the new version number'
         required: true
-        type: string
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Update Package Version
-        id: get_version
-        run: |
-          # Retrieve the input value of 'new_version'
-          new_version="${{ github.event.inputs.new_version }}"
-
-          # Update the version in the version.py file (assuming version is specified as '__version__ = "1.0.0"')
-          sed -i "s/__version__ = \".*\"/__version__ = \"$new_version\"/" pkgUdit/version.py
-
-          # Commit the changes
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          git commit -a -m "Update version to $new_version"
-          git push
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.x
-
-      - name: Install dependencies
-        run: pip install setuptools wheel twine
-
-      - name: Build distribution
-        run: python setup.py sdist bdist_wheel
-
-      - name: Publish to PyPI
-        if: ${{ success() }}
-        run: python -m twine upload --skip-existing dist/*
-
-        env:
-          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+    - name: Install dependencies
+      run: pip install twine
+    - name: Update version number
+      env:
+        PACKAGE_NAME: mypackage
+        NEW_VERSION: ${{ github.event.inputs.new_version }}
+      run: sed -i "s/__version__ = .*/__version__ = \"${NEW_VERSION}\"/" ${PACKAGE_NAME}/version.py
+    - name: Build package
+      run: python setup.py sdist bdist_wheel
+    - name: Publish package
+      env:
+        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+      run: twine upload --skip-existing dist/*
