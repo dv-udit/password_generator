@@ -26,7 +26,7 @@ jobs:
       run: pip install wheel
     - name: Update version in version.py
       run: |
-        echo "__version__ = '${{ github.event.inputs.version_number }}'" > version.py
+        echo "__version__ = '${{ github.event.inputs.new_version }}'" > version.py
     # - name: Update version number
     #   env:
     #     PACKAGE_NAME: pkgUdit
