@@ -5,7 +5,7 @@ import setuptools
 
 setuptools.setup(
     name="pkgUdit",                     # This is the name of the package
-    version="1.1.5.9",                        # The current release version
+    version="1.1.6",                        # The current release version
     author="Udit Sharma",                     # Full name of the author
     description="The is a sample package",
     zip_safe=False,
