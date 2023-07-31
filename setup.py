@@ -1,11 +1,11 @@
 import setuptools
-
+from version import __version__
 # with open("README.md", "r") as fh:
 #     long_description = fh.read()
 
 setuptools.setup(
     name="pkgUdit",                     # This is the name of the package
-    version="1.1.6",                        # The current release version
+    version= version,                        # The current release version
     author="Udit Sharma",                     # Full name of the author
     description="The is a sample package",
     zip_safe=False,

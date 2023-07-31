@@ -1,9 +1,15 @@
-name: Publish to PyPI on Push
+name: Publish to PyPI on Push and Manual Trigger
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      new_version:
+        description: 'Package version for publishing to PyPI'
+        required: true
+        type: string
 
 jobs:
   publish:
@@ -18,13 +24,14 @@ jobs:
           # Retrieve the input value of 'new_version'
           new_version="${{ github.event.inputs.new_version }}"
 
-          # Update the version in the __init__.py file
-          sed -i "s/__version__ = \".*\"/__version__ = \"$new_version\"/" pkgUdit/__init__.py
+          # Update the version in the version.py file (assuming version is specified as '__version__ = "1.0.0"')
+          sed -i "s/__version__ = \".*\"/__version__ = \"$new_version\"/" pkgUdit/version.py
 
           # Commit the changes
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git commit -a -m "Update version to $new_version"
+          git push
 
       - name: Set up Python
         uses: actions/setup-python@v2

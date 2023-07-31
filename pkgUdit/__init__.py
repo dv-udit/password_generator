@@ -8,8 +8,7 @@
 
 
 from .pswdGen import generate_pass
-__version__ = '1.1.6'
-
+ 
 # def generatePassword():
 #     return generatePass()
 
